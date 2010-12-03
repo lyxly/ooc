@@ -45,3 +45,55 @@
     new()和delete()大体上是ANSI-C函数calloc()和free()的一个(向用户暴露的)前端函数。如果使用它们，描述符至少需要指明需要申请内存的大小。
 
 1.5对象
+
+    如果我们需要收集一个set中任何感兴趣的东西，我们就需要在头文件Object.h中描述另外一个抽象数据类型Object：
+	extern const void * Object;               /* new(Object); */
+        int differ (const void * a, const void * b);
+    differ()能够比较对象：如果它们不相等就返回true，否则返回false。这样的描述为strcmp函数的应用留下空间：对于一些成对的对象我们可以选择返回正值或者负值来确定其次序。
+    生活中的对象需要更多的功能来完成一些实际的事情。目前，我们把自己约束在成为一个集合中成员这样一个单纯的需求。如果我们创建一个更大的类库，我们会发现集合——事实上任何其他的东西——也是一个对象。在这点上，大量的实际情况也多少给予了我们自由。
+
+1.6一个程序
+
+    通过这些定义抽象数据类型的头文件，我们就可以写一个程序main.c
+	#include <stdio.h>
+        #include "new.h"
+        #include "Object.h"
+        #include "Set.h"
+        int main ()
+        {    void * s    =   new(Set);
+             void * a    =   add(s, new(Object));
+             void * b    =   add(s, new(Object));
+             void * c    =   new(Object);
+             if (contains(s, a) && contains(s, b))
+                  puts("ok");
+             if (contains(s, c))
+                  puts("contains?");
+             if (differ(a, add(s, a)))
+                  puts("differ?");
+             if (contains(s, drop(s, a)))
+                  puts("drop?");
+             delete(drop(s, b));
+             delete(drop(s, c));
+             return 0;
+        }
+    我们建立一个集合并且加入了两个新的对象。如果一切正常，我就能在集合中找到这两个对象，并且诶集合找不到其他的对象。这个程序应该简单的打印出ok。
+    对于differ()的调用展示了一个语义：一个数学集合中只能包含一份对象a的拷贝；如果试图再加入一次就会返回原始对象并且differ()返回false。类似的，一旦我们删除了这个对象，它就不在这个集合中了。
+    删除一个不在集合中的元素会产生一个空指针传递给delete()。目前我们坚持free()的语义并且它是可以接受空指针的。
+
+1.7一个实现——Set
+
+    main.c可以正确编译，但是我们在链接并且执行这个程序之前，我们必须实现这个抽象数据类型并且完成内存管理部分。如果一个对象不存放任何信息并且每个对象至多只属于一个集合，那么我们就可以把每个对象和集合都视为唯一的小整数，那么也就可以作为数组heap[]的索引。如果一个对象是一个集合的元素，那么该对象的数组元素中存储着其所在集合的整数索引值。这样，对象指向了包含它的集合。
+    第一个方案是如此的简单以至于我们可以把所有的模块合到一个简单的文件Set.c中。集合和对象有相同的表示，所以new()不再考虑类型描述。它只返回一个heap[]中值为0的元素。
+	#if ! defined MANY || MANY < 1
+        #define MANY         10
+        #endif
+        static int heap [MANY];
+        void * new (const void * type, ...)
+        {     int * p;                                     /* & heap[1..] */
+              for (p = heap + 1; p < heap + MANY; ++ p)
+                   if (! * p)
+                         break;
+              assert(p < heap + MANY);
+              * p = MANY;
+              return p;
+        }
