@@ -1,0 +1,14 @@
+
+2011.03:
+	Add LaTeX source, a ready-to-work structure for a book, and convert
+	the plain text into marked LaTeX file, which can produce a book.
+2010.12:
+	Change the binary form into plain text form. 
+	Add more translations.
+2010.11:
+	Microsoft Word format file commit, binary form.
+	Add "Preface" part.
+	Add Chapter 1: Abstract Data Types.
+2010.11:
+	Project Created.
+
