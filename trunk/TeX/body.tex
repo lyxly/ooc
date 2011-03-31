@@ -1,0 +1,238 @@
+% # Copyright (C) 2009-2010, suxpert, All right reserved.
+% # -*- coding: utf-8 -*-
+% !TEX encoding = UTF-8 Unicode
+
+% Version Control System Information: Subversion, host on Google Code;
+% FileID:		$Id$;
+% FileDate:		$Date$;
+% FileRevision:	$Revision$
+
+% Body part of the book, structures.
+
+% There should be lots of informations at the beginning:
+% # The Cover | blank;
+% # An empty page | blank;
+% # Title page | Info & ISBN etc.;
+% # Maybe Copyrights / Dedicate to | blank;
+% # Preface;
+% # Self Preface;
+
+% # Contains;
+
+% # The body;
+
+% # Bibliography;
+
+% # Index;
+% Or maybe some more, and not this order.
+
+% TODO: The cover and more.
+
+\title{\fontsize{42bp}{\baselineskip} \thetitle} % Only work for Chinese.
+% \title{\Huge \thetitle}
+\author{\Large\bf\theauthors}
+% \author{\Large\bf \theauthor\quad 著\\
+% \Large\bf \thetrans\quad 译}
+\date{\thedate\\ \theversion}
+
+\providecommand*{\wb}[2]{\fontsize{#1}{#2}\usefont{U}{webo}{xl}{n}}
+
+\newcommand{\titleWH}{\begingroup% Words in their Hands
+\newlength\drop
+% \setlength{\drop}{0.1\textheight}
+\drop=2\baselineskip
+\centering
+\vspace*{\drop}
+{\fontsize{32bp}{\baselineskip}\bf \thetitle} \\[\drop]
+% {\Huge \thetitle}\\[\drop]
+\scalebox{8}[1]{{\wb{10}{12}4}}\\[\drop]
+{\Large{\bf \theauthor}\quad 著}\\[\baselineskip]
+% {\Large\itshape 著}\\[\baselineskip]
+{\wb{10}{12}4}\\[\baselineskip]
+{\Large{\bf \thetrans}\quad 译}\par
+% {\Large\itshape 译}\\[\baselineskip]
+\vfill
+\scalebox{8}[1]{{\wb{10}{12}4}}\\[\drop]
+{\Large \thepublisher}\\
+{\scshape \thedate}\par
+\vspace*{\drop}
+\endgroup}
+
+\pagestyle{empty}
+\begin{titlepage}
+	% \DeclareFixedFont{\Bf}{T1}{ptm}{b}{n}{3cm}
+	% \PstLightThreeDText[fillstyle=solid,fillcolor=white]{\Bf Test}
+% \centering \Huge
+% \maketitle
+% \Huge\thetitle\\
+% \large\theauthor{}\quad 著 \qquad\thetrans{}\quad 译
+\titleWH
+\end{titlepage}
+
+\cleardoublepage
+% A blank page.
+
+% \chapter*{}
+\vspace*{3cm}
+\begin{center}
+	{\Huge\thetitle\\[1em]}
+	{\Large\bf\theauthors\\[2em]}
+	\thedate\\
+	\theversion
+\end{center}
+
+% \vspace{10cm}
+\vfill
+\begin{center}
+	\scshape{Fandol Culture \& Education}\\
+	\Large{\bf \thepublisher} \quad 荣誉出品
+\end{center}
+
+\newpage
+% \chapter*{}
+\vspace*{2cm}
+\noindent\quad \textbf{图书在版编目（CIP）数据}
+\vspace{1em}
+
+\noindent\quad\thetitle\ / \theauthor\ 著，\thetrans\ 译\ /
+青岛：饭朵文化教育出版，2010.12
+
+\noindent\quad ISBN 7-04-XXXXXX-X
+
+\vspace{2cm}
+Info\ldots
+\vspace{2cm}
+
+\begin{tabular}{cccc}
+	\bf 编\qquad 辑	&	\litux	& \bf 校\qquad 对 &	\litux\\
+	\bf 封面设计	&	\litux	& \bf 印\qquad 制 &	\litux\\
+\end{tabular}
+
+\bigskip
+
+\renewcommand{\arrayrulewidth}{1.2pt}
+\begin{tabularx}{0.9\textwidth}{cXcX}
+	\hline
+	\bf 出版发行	& \thepublisher		& \bf 地\qquad 址	& 山东省青岛市\\
+	\bf 开\qquad 本	& 787×960 1/16		& \bf 印\qquad 张	& 无实体书\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\bf 字\qquad 数	& XXX 000			& \bf 版\qquad 次	& 第一版\\
+	\hline
+\end{tabularx}
+\vfill
+\noindent {\large\bf 版权所有，侵权必究}
+
+\newpage
+
+% \chapter*{}
+\vspace*{3cm}
+\begin{center}% TODO
+	{\Huge 致谢/献给 \\[2em]}
+	{\Large
+	路人甲、路人乙，东软，山东科技大学\\
+	\bigskip
+	以及\\
+	\bigskip
+	{\bf 所有热爱和平的程序猿}
+	}
+\end{center}
+
+\frontmatter
+% TODO: We'd better setup the headings style for the page header.
+%\pagestyle{headings}
+\pagestyle{fancy}
+
+\include{preface}
+
+\tableofcontents
+% \addcontentsline{toc}{chapter}{目\quad 录}
+
+\mainmatter
+\pagestyle{fancy}
+
+% FIXME: The file name shouldn't be only a number.
+
+\include{chapter01}
+\include{chapter02}
+\include{chapter03}
+\include{chapter04}
+\include{chapter05}
+\include{chapter06}
+\include{chapter07}
+\include{chapter08}
+\include{chapter09}
+\include{chapter10}
+\include{chapter11}
+\include{chapter12}
+\include{chapter13}
+\include{chapter14}
+
+\appendix
+
+\renewcommand{\chapterformat}
+{附录\thechapter}
+\titlecontents{chapter}[0em]{\addvspace{1.5ex}\bfseries}
+{附录\thecontentslabel\quad}% {附录\thecontentslabel\quad}
+{\hspace*{-2.3em}}
+{\hfill{}\contentspage}[\addvspace{0.5ex}]
+
+% FIXME: I don't know why if I use \include to include apd.A, the label of
+% the contains is incorrect, but when use \input, it turns to be OK. - -||
+\input{appendixA}
+\include{appendixB}
+\include{appendixC}
+
+\backmatter
+ 
+\addcontentsline{toc}{chapter}{参考文献}
+\begin{thebibliography}{AWK88}
+
+\bibitem[ANSI]{ANSI}
+	American National Standard for Information Systems ---Programming
+	Language C X3.159-1989.
+
+\bibitem[AWK88]{AWK88}
+	A. V. Aho, B. W. Kernighan and P. J. Weingerger The awk Programming
+	Language Addison-Wesley 1988, ISBN 0-201-07981-X.
+
+\bibitem[Bud91]{Bud91}
+	T. Budd An Introduction to Object-Oriented Programming Prentice Hall
+	1991, ISBN 0-201-54709-0.
+
+\bibitem[Ker82]{Ker82}
+	B. W. Kernighan ``pic --- A Language for Typesetting Graphics'' Software
+	--- Practice and Experience January 1982.
+
+\bibitem[K\&P84]{KP84}
+	B. W. Kernighan and R. Pike The UNIX Programming Environment Prentice
+	Hall 1984, ISBN 0-13-937681-X.
+
+\bibitem[K\&R78]{KR78}
+	B. W. Kernighan and D. M. Ritchie The C Programming Language Prentice
+	Hall 1978, ISBN 0-13-110163-3.
+
+\bibitem[K\&R88]{KR88}
+	B. W. Kernighan and D. M. Ritchie The C Programming Language Second
+	Edition, Prentice Hall 1988, ISBN 0-13-110362-8.
+
+\bibitem[Sch87]{Sch87}
+	A. T. Schreiner UNIX Sprechstunde Hanser 1987, ISBN 3-446-14894-9.
+
+\bibitem[Sch90]{Sch90}
+	A. T. Schreiner Using C with curses, lex, and yacc Prentice Hall 1990,
+	ISBN 0-13-932864-5.
+ 
+\end{thebibliography}
+
+% TODO: Maybe we also need the Index?
+
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 :
+

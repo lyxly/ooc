@@ -1,0 +1,43 @@
+% # Copyright (C) 2009-2010, suxpert, All right reserved.
+% # -*- coding: utf-8 -*-
+% !TEX encoding = UTF-8 Unicode
+
+% Version Control System Information: Subversion, host on Google Code;
+% FileID:		$Id$;
+% FileDate:		$Date$;
+% FileRevision:	$Revision$
+
+\documentclass[11pt]{book}
+\input{header}
+
+\newcommand{\cemph}[1]{{\ttfamily\slshape #1}}
+\newcommand{\ccbf}[1]{{\ttfamily\bfseries #1}}
+\newcommand{\ccode}[1]{\lstinline[basicstyle=\ttfamily]{#1}}
+\newcommand{\prop}[1]{{\sffamily #1}}
+
+\begin{document}
+% \begin{CJK*}{UTF8}{gkai}
+
+\input{locale}
+
+\newcommand{\thetitle}{ANSI-C面向对象编程}
+\newcommand{\thesubtitle}{}
+% \newcommand{\thetrans}{卜少峰}
+\newcommand{\thetrans}{\href{http://blog.csdn.net/SerenityMoon}{三无舍人}}
+\newcommand{\theauthor}{Axel-Tobias Schreiner}
+\newcommand{\thepublisher}{饭朵文化教育}
+\newcommand{\theauthors}{\theauthor\quad 著\\ \thetrans\quad 译}
+\newcommand{\thedate}{2010年12月}
+\newcommand{\theversion}{版本0.01}
+
+\newcommand{\litux}{\href{http://blog.csdn.net/suxpert}{LiTuX}}
+
+\newcommand{\Google}{\href{http://www.google.com}{\textcolor{blue}{G}\textcolor{red}{o}\textcolor{orange}{o}\textcolor{blue}{g}\textcolor{green}{l}\textcolor{red}{e}}}
+
+% The body of the book, structures.
+\input{body}
+
+% \end{CJK*}
+\end{document}
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 :
+

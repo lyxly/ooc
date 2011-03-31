@@ -1,0 +1,272 @@
+% # Copyright (C) 2009-2010, suxpert, All right reserved.
+% # -*- coding: utf-8 -*-
+% !TEX encoding = UTF-8 Unicode
+
+% Version Control System Information: Subversion, host on Google Code;
+% FileID:		$Id$;
+% FileDate:		$Date$;
+% FileRevision:	$Revision$
+
+% \chapter{Abstract Data Types ---Information Hiding}
+\chapter{抽象数据类型：信息隐藏}
+
+% \section{Data Types}
+\section{数据类型}
+
+% Fixme: I don't know how to add the space automaticly by xeCJK or something
+% else, so I have to add the space manually wherever use this ccode.
+
+数据类型是每种编程语言不可缺少的一部分。\prop{ANSI-C} 有 \ccode{int}，
+\ccode{double} 和 \ccode{char} 这几种。程序员们很少满足于现状，而编
+程语言通常会提供了从预定义的类型创建新数据类型的机制。一种简单的方法是构造集
+合如数组，结构体和联合体。被C. A. R. Hoare称为“我们永远无法收回的一步”的指
+针，允许我们表示和操作本质上极其复杂的数据。
+
+到底什么是数据类型？我们可以从几个方面来看。数据类型就是值（\prop{value}）的
+集合——\ccode{char} 就有256种不同的值，\ccode{int} 就更多了；两者都有均匀
+的间隔，或多或少有点像是数学里的自然数或整数。\ccode{double} 类型的值就
+更多了，但是它们实际上却不像数学里的实数。
+
+或者我们可以定义一种数据类型，它是一组值的集合以及作用于该集合之上的操作。一
+般来说，这些值是计算机能够表示的，而这些操作多少反映了可用的硬件指令。
+\prop{ANSI-C} 中的 \ccode{int} 在这方面上就做得不太好：值的集合在不同的机器
+上可能是不同的，并且如算数右移一样的操作也会不同。
+
+更加复杂的例子没有更好的用处。一般我们可以用结构体来定义线性表的元素
+\begin{lstlisting}
+#include<stdio.h>
+typedef struct node {
+	struct node * next;
+	... information ...
+} node;
+\end{lstlisting}
+至于对线性表的操作我们指定像这样的函数头部：
+\begin{lstlisting}
+node * head(node * elt, const node * tail);
+\end{lstlisting}
+
+但是，这种办法是很松散的。好的编程原则要求我们封装数据项表示，并且只声明可能
+的操作。
+
+% \section{Abstract Data Types}
+\section{抽象数据类型}
+
+如果我们不打算把具体表示暴露给用户，那么我们称这个数据类型是\textbf{抽象的}
+。理论上将这要求我们通过涉及到适当操作的数学公理来指定这个数据类型的属性。例
+如，只有当我们首先经常往一个队列里添加元素时我们才可以删除它，并且我们取回这
+个元素的顺序与它们被加入的顺序是相同的。
+
+抽象数据类型为程序员提供了巨大的灵活性。既然数据表示不是类型定义的一部分，我
+们可以自由的选择更加简单或者最有效的方法。如果我们正确区分了必要的信息（数据
+类型的内部信息），那么数据类型的使用与我们选择实现的方法就完全独立了。
+
+抽象数据类型满足了\textbf{信息隐藏}以及使用与实现\textbf{分而治之}的良好编程
+原则。信息（如数据项的表示）只要被提供给需要知道的它的人就可以了：是实现者而
+不是使用者。通过抽象数据类型我们可以清楚分开实现与使用：我们在把大系统分成小
+模块的道路上顺利前行。
+
+% \section{An Example ---\cemph{Set}}
+\section{一个例子：\cemph{Set}}
+那么我们怎么实现抽象数据类型呢？作为一个例子我们考虑一个带有\cemph{add}、
+\cemph{find} 和\cemph{drop} 操作的元素集合\footnote{
+不幸的是，\cemph{remove} 是一个用来删除文件的\prop{ANSI-C} 库函数。如果我们
+使用其命名一个\prop{set}的函数，我们就不能再包含\cemph{stdio.h} 了。}。
+它们适用于一个集合、一个元素，并且返回添加的、查找到的或者从集合中删除的元素
+。\cemph{find} 可以被用来实现\cemph{contains}，它告诉我们这个集合中是否已经
+包含了这个元素。
+
+从这个角度，集合就是一种抽象数据类型。为了声明我们可以对一个集合做什么，我们
+创建了一个头文件\cemph{Set.h}
+\begin{lstlisting}
+#ifndef SET_H
+#define SET_H
+
+extern const void * Set;
+
+void * add(void * set, const void * element);
+void * find(const void * set, const void * element);
+void * drop(void * set, const void * element);
+int contains(const void * set, const void * element);
+
+#endif
+\end{lstlisting}
+
+预处理语句保护下面的声明：无论我们包含多少次\cemph{Set.h}，C编译器只会看到它
+一次。这种保护头文件的技术是非常标准的，\prop{GNU C} 编译器可以识别它并且当
+这个保护符号（宏\ccbf{SET\_H}）已经被定义了的时候不会再访问\cemph{Set.h}。
+
+\cemph{Set.h} 是完整的，但是它有用么？我们几乎不能暴露或者显示更少的内容了：
+\ccbf{Set} 必须以某种方式来实现操作这个集合：\ccbf{add()} 获得一个元素并且
+将其添加进集合，返回该元素，无论这个元素是新加入的还是已经存在于集合中；
+\ccbf{find()} 在集合中查找一个元素，返回该元素或者空指针；\ccbf{drop()} 定
+位一个元素，从集合中将其删除，并且返回我们删除的元素；\ccbf{contains()} 把
+\ccbf{find()} 的结果转换成一个真值。
+
+我们一直使用通用指针 \ccode{void *}。一方面它使得了解一个集合到底有什么内容
+变得不可能，但另一方面它允许我们向\ccbf{add()} 和其他的函数传递任何东西。并
+使任何东西都会表现的像一个集合或者一个元素——为了信息隐藏我们牺牲了类型安全
+。然而，我们将在第八章中看到如何才能使这种方式变得实现。
+% TODO, use references.
+
+% \section{Memory Management}
+\section{内存管理}
+我们可能已经忽略了一些事情：如何获得一个集合呢？\ccbf{Set} 是一个指针，不是
+一个使用 \ccode{typedef} 定义的类型；所以，我们不能定义一个\ccbf{Set} 类型的
+局部或者全局变量，而只能通过指针来指示集合和元素。并且我们在\cemph{new.h} 中
+声明所有数据项的资源申请与释放的方法：
+\begin{lstlisting}
+void * new(const void * type, ...);
+void delete(void * item);
+\end{lstlisting}
+就像\cemph{Set.h} 一样，这个文件被预处理符号\ccbf{NEW\_H} 保护。本文只显示了
+每个新文件中更有意义的部分。源文件软盘包含所有示例的完整代码。
+
+\ccbf{new()} 接受类似于\ccbf{Set} 一样的描述符以及更多的可能使用的初始化参数
+，它返回一个指向新创建的符合描述参数的数据项的指针。\ccbf{delete()} 接受一个
+有\ccbf{new()} 创建的指针并且回收相关资源。
+
+\ccbf{new()} 和\ccbf{delete()} 大体上是\prop{ANSI-C} 函数\ccbf{calloc()}
+和\ccbf{free()} 的一个（向用户暴露的）前端函数。如果使用它们，描述符至少需要
+指明需要申请内存的大小。
+
+% \section{\cemph{Object}}
+\section{\emph{对象}}
+如果我们需要收集一个\prop{set}中任何感兴趣的东西，我们就需要在头文件
+\cemph{Object.h} 中描述另外一个抽象数据类型\ccbf{Object}：
+\begin{lstlisting}
+extern const void * Object;		/* new(Object); */
+
+int differ (const void * a, const void * b);
+\end{lstlisting}
+\ccbf{differ()} 能够比较对象：如果它们不相等就返回\ccbf{true}，否则返回
+\ccbf{false}。这样的描述为\ccbf{strcmp()} 函数的应用留下空间：对于一些成对
+的对象我们可以选择返回正值或者负值来确定其次序。
+
+生活中的对象需要更多的功能来完成一些实际的事情。目前，我们把自己约束在成为一
+个集合中成员这样一个单纯的需求。如果我们创建一个更大的类库，我们会发现集合—
+—事实上任何其他的东西——也是一个对象。在这点上，大量的实际情况也多少给予了
+我们自由。
+
+% \section{An Application}
+\section{一个应用程序}
+通过这些定义抽象数据类型的头文件，我们就可以写一个程序\cemph{main.c}
+\begin{lstlisting}
+#include <stdio.h>
+
+#include "new.h"
+#include "Object.h"
+#include "Set.h"
+
+int main()
+{
+	void * s = new(Set);
+	void * a = add(s, new(Object));
+	void * b = add(s, new(Object));
+	void * c = new(Object);
+
+	if ( contains(s, a) && contains(s, b) )
+		puts("ok");
+
+	if ( contains(s, c) )
+		puts("contains?");
+
+	if ( differ(a, add(s, a)) )
+		puts("differ?");
+
+	if ( contains(s, drop(s, a)) )
+		puts("drop?");
+
+	delete( drop(s, b) );
+	delete( drop(s, c) );
+
+	return 0;
+}
+\end{lstlisting}
+我们建立一个集合并且加入了两个新的对象。如果一切正常，我就能在集合中找到这两
+个对象，并且诶集合找不到其他的对象。这个程序应该简单的打印出\ccbf{ok}。
+
+对于\ccbf{differ()} 的调用展示了一个语义：一个数学集合中只能包含一份对象
+\ccbf{a} 的拷贝；如果试图再加入一次就会返回原始对象并且\ccbf{differ()} 返回
+\ccbf{false}。类似的，一旦我们删除了这个对象，它就不在这个集合中了。
+
+删除一个不在集合中的元素会产生一个空指针传递给\ccbf{delete()}。目前我们坚持
+\ccbf{free()} 的语义并且它是可以接受空指针的。
+
+% \section{An Implementation ---\cemph{Set}}
+\section{一个实现：\cemph{Set}}
+\cemph{main.c} 可以正确编译，但是我们在链接并且执行这个程序之前，我们必须实
+现这个抽象数据类型并且完成内存管理部分。如果一个对象不存放任何信息并且每个对
+象至多只属于一个集合，那么我们就可以把每个对象和集合都视为唯一的小整数，那么
+也就可以作为数组\ccbf{heap[]} 的索引。如果一个对象是一个集合的元素，那么该对
+象的数组元素中存储着其所在集合的整数索引值。这样，对象指向了包含它的集合。
+
+第一个方案是如此的简单以至于我们可以把所有的模块合到一个简单的文件
+\cemph{Set.c} 中。集合和对象有相同的表示，所以\ccbf{new()} 不再考虑类型描述
+。它只返回一个\ccbf{heap[]} 中值为0的元素：
+\begin{lstlisting}
+#if ! defined MANY || MANY < 1
+#define MANY	10
+#endif
+
+static int heap [MANY];
+
+void * new(const void * type, ...)
+{
+	int * p;		/* & heap[1..] */
+
+	for( p = heap + 1; p < heap + MANY; ++p )
+		if( ! *p )
+			break;
+	assert( p < heap + MANY );
+	*p = MANY;
+	return p;
+}
+\end{lstlisting}
+% TODO: r12
+
+% \section{Anothor Implementation ---\cemph{Bag}}
+\section{另一个实现：\cemph{Bag}}<++>
+
+% \section{Summary}
+\section{小结}
+
+% \section{Exercises}
+\section{练习}
+
+A quick brown fox jumps over the lazy dogs.
+A quick brown fox jumps over the lazy dogs.
+A quick brown fox jumps over the lazy dogs.
+
+%\noindent
+%0123456789012345678901234567890123456789012345678901234567890123456789Max7567
+% WTF? OK, I'll add some words to avoid it.
+
+% \noindent
+% 0123456789012345678901234567890123456789012345678901234567890123456789--74
+
+\begin{lstlisting}
+#include<stdio.h>
+
+/* A simple test file for input C code in \LaTeX.
+ * The Hello_world.
+ * */
+
+"A quick brown fox jumps over the lazy dogs."
+A quick brown fox jumps over the lazy dogs.
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_abcdefghijklmnopqrstuvwxyz
+
+012345678901234567890123456789012345678901234567890123456789--64
+012345678901234567890123456789012345678901234567890123456789
+01234567890123456789012345678901234567890123456789
+0123456789012345678901234567890123456789
+
+int main(int argc, char * argv[]){
+	printf("Hello world!\n");
+	// A quick brown fox jumps over the lazy dogs.
+	return 0;
+}
+\end{lstlisting}
+
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 :
+
