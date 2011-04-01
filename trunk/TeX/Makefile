@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010, suxpert, All right reserved.
+# Copyright (C) 2009-2011, suxpert, All right reserved.
 
 # Version Control System Information: Subversion, host on Google Code;
 # FileID:	$Id$;
