@@ -1,4 +1,4 @@
-% # Copyright (C) 2009-2010, suxpert, All right reserved.
+% # Copyright (C) 2009-2011, suxpert, All right reserved.
 % # -*- coding: utf-8 -*-
 % !TEX encoding = UTF-8 Unicode
 
@@ -157,7 +157,7 @@ int differ (const void * a, const void * b);
 #include "Object.h"
 #include "Set.h"
 
-int main()
+int main ()
 {
 	void * s = new(Set);
 	void * a = add(s, new(Object));
@@ -210,19 +210,135 @@ int main()
 
 static int heap [MANY];
 
-void * new(const void * type, ...)
+void * new (const void * type, ...)
 {
 	int * p;		/* & heap[1..] */
 
-	for( p = heap + 1; p < heap + MANY; ++p )
-		if( ! *p )
+	for ( p = heap + 1; p < heap + MANY; ++p )
+		if ( ! *p )
 			break;
 	assert( p < heap + MANY );
 	*p = MANY;
 	return p;
 }
 \end{lstlisting}
-% TODO: r12
+We use zero to mark available elements of \ccbf{heap[]}; therefore, we
+cannot return a reference to \ccbf{heap[0]} ---if it were a set, its
+elements would contain the index value zero.
+
+Before an object is added to a set, we let it contain the impossible index
+value \ccbf{MANY} so that \ccbf{new()} cannot find it again and we still
+cannot mistake it as a member of any set.
+
+\ccbf{new()} can run out of memory. This is the first of many errors, that
+``cannot happen''. We will simply use the \prop{ANSI-C} macro
+\ccbf{assert()} to mark these points. A more realistic implementation should
+as least print a reasonable error message or use a general function for
+error handing which the user may overwrite. For our purpose of developing a
+coding technique, however, we prefer to keep the code uncluttered. In
+chapter 13 we will look at a general technique for hading exceptions.
+
+\ccbf{delete()} has to be careful about \prop{null} pointers. An element of
+\ccbf{heap[]} is recycled by setting it to zero:
+\begin{lstlisting}
+void delete (void * _item)
+{
+	int * item - _item;
+	if (item)
+	{	assert(item > heap && item < heap + MANY);
+		* item = 0;
+	}
+}
+\end{lstlisting}
+We need a uniform way to deal with generic pointers; therefore, we prefix
+their names with an underscore and only use them to initialize local
+variables with the desired types and with the appropriate names.
+
+A set is represented in its objects: each element points to the set. If an
+element contains \ccbf{MANY}, it can be added to the set, otherwise, it
+should already be in the set because we do not permit an object to belong to
+more than one set.
+\begin{lstlisting}
+void * add (void * _set, const void * _element)
+{
+	int * set = _set;
+	const int * element = _element;
+
+	assert(set > heap && set < heap + MANY);
+	assert(* set == MANY);
+	assert(element > heap && element < heap + MANY);
+
+	if (* element == MANY)
+		* (int *) element = set - heap;
+	else
+		assert(* element == set - heap);
+
+	return (void *) element;
+}
+\end{lstlisting}
+\ccbf{assert()} takes out a bit of insurance: we would only like to deal
+with pointers into \ccbf{heap[]} and the set should not belong to some other
+set, i.e., its array element value ought to be \ccbf{MANY}.
+
+The other functions are just as simple. \ccbf{find()} only looks if its
+element contains the proper index for the set:
+\begin{lstlisting}
+void * find (const void * _set, const void * _element)
+{
+	const int * set = _set;
+	const int * element = _element;
+
+	assert(set > heap && set < heap + MANY);
+	assert(* set == MANY);
+	assert(element > heap && element < heap + MANY);
+	assert(* element);
+
+	return * element == set - heap ? (void *) element : 0;
+}
+\end{lstlisting}
+\ccbf{contains()} converts the result of \ccbf{find()} into a truth value:
+\begin{lstlisting}
+int contains (const void * _set, const void * _element)
+{
+	return find(_set, _element) != 0;
+}
+\end{lstlisting}
+\ccbf{drop()} can rely on \ccbf{find()} to check if the element to be
+dropped actually belongs to the set. If so, we return it to object status by
+marking it with \ccbf{MANY}:
+\begin{lstlisting}
+void * drop (void * _set, const void * _element)
+{
+	int * element = find(_set, _element);
+	if (element)
+		* element = MANY;
+	return element;
+}
+\end{lstlisting}
+If we were pickier, we could insist that the element to be dropped not
+belong to another set. In this case, however, we would replicate most of the
+code of \ccbf{find()} in \ccbf{drop()}.
+
+Our implementation is quite unconventional. It turns out that we do not need
+\ccbf{differ()} to implement a set. We still need to provide it, because our
+application uses this function.
+\begin{lstlisting}
+int differ (const void * a, const void * b)
+{
+	return a != b;
+}
+\end{lstlisting}
+Objects differ exactly when the array indices representing them differ,
+i.e., a simple pointer comparison is sufficient.
+
+We are done --- for this solution we have not used the descriptors
+\ccbf{Set} and \ccbf{Object} but we have to define them to keep our C
+compiler happy:
+\begin{lstlisting}
+const void * Set;
+const void * Object;
+\end{lstlisting}
+We did use these pointers in \ccbf{main()} to create new sets and objects.
 
 % \section{Anothor Implementation ---\cemph{Bag}}
 \section{另一个实现：\cemph{Bag}}<++>
