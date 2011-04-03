@@ -1,4 +1,4 @@
-% # Copyright (C) 2009-2010, suxpert, All right reserved.
+% # Copyright (C) 2009-2011, suxpert, All right reserved.
 % # -*- coding: utf-8 -*-
 % !TEX encoding = UTF-8 Unicode
 
@@ -265,11 +265,59 @@ cp -> a.x					// OK, fully specified
 
 % \section{Pointers to Functions}
 \section{函数指针}
-<++>
+The declaration of a pointer to a function is constructed from the
+declaration of a function by adding one level of indirection, i.e., a
+\ccbf{*} operator, to the function name. Parentheses are used to control
+precedence:
+\begin{lstlisting}
+void * 		f	(void *);		// function
+void * (* fp)	(void *) = f;	// pointer to function
+\end{lstlisting}
+These pointers are usually initialized with function names that have been
+declared earlier. In function calls, function names and pointers are used
+identically:
+\begin{lstlisting}
+int x;
+	f		(& x);			// using a function name
+	fp		(& x);			// using a pointer, ANSI-C
+	(* fp)	(& x);			// using a pointer, classic
+\end{lstlisting}
+A pointer to a function can be a structure component:
+\begin{lstlisting}
+struct Class { ...
+	void * (* ctor) (void * self, va_list * app);
+... } * cp, ** cpp;
+\end{lstlisting}
+In a function call, \ccbf{->} has precedence over the function call, but is
+has no precedence over dereferencing with \ccbf{*}, i.e., the parentheses
+are necessary in the second example:
+\begin{lstlisting}
+cp -> ctor ( ... );
+(* cpp) -> ctor ( ... );
+\end{lstlisting}
 
 % \section{Preprocessor}
 \section{预处理器}
-<++>
+\prop{ANSI-C} no longer expands \ccode{#define} recursively; therefore,
+function calls can be hidden or simplified by macros with the same name:
+\begin{lstlisting}
+#define malloc(type) (type *) malloc(sizeof(type))
+int * [ = malloc(int);
+\end{lstlisting}
+If a macro is defined withe parameters, \prop{ANSI-C} only recognizes its
+invocation if the macro name appears before a left parentheses; therefore,
+macro recognition can be suppressed in a function header by surrounding the
+function name with an extra set of parentheses:
+\begin{lstlisting}
+#include <stdio.h>				// defines putchar(ch) as a macro
+int (putchar) (int ch) { ... }	// name is not replaced
+\end{lstlisting}
+Similarly, the definition of a parametrized macro no longer collides with a
+variable of the same name:
+\begin{lstlisting}
+#define x(p) (((const struct Object *)(p)) -> x)
+int x = 10;						// name is not replaced
+\end{lstlisting}
 
 % \section{Verification ---\cemph{assert.h}}
 \section{断言：\cemph{assert.h}}
