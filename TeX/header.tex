@@ -125,6 +125,8 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 %% # End CJK }}}
 
 \usepackage{makeidx}
+\makeindex
+
 \usepackage{fancyhdr} % 页眉页脚
 \setlength{\headheight}{15pt} % To avoid the warning.
 \pagestyle{fancy}
@@ -181,7 +183,10 @@ numbers=left,
 numberstyle=\footnotesize,
 % numbersep=10pt,
 numberfirstline=false,
+numbersep=0.5em,
 stepnumber=2,
+breaklines=true,
+extendedchars=false,
 tabsize=4,
 xleftmargin=2em,
 % xrightmargin=0em,
@@ -194,6 +199,7 @@ keywordstyle=\bfseries\color{blue},
 numberstyle=\color[RGB]{0,192,192},
 commentstyle=\slshape\color[RGB]{0,96,96},
 stringstyle=\color[RGB]{128,0,0},
+% title=\lstname,
 showstringspaces=false
 }
 
