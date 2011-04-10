@@ -32,7 +32,8 @@
 \prop{ANSI-C} 中的 \ccode{int} 在这方面上就做得不太好：值的集合在不同的机器
 上可能是不同的，并且如算数右移一样的操作也会不同。
 
-更加复杂的例子没有更好的用处。一般我们可以用结构体来定义线性表的元素
+更加复杂的例子没有更好的用处。一般我们可以用结构体来定义
+线性表\index{线性表}的元素
 \begin{lstlisting}
 #include<stdio.h>
 typedef struct node {
@@ -68,7 +69,7 @@ node * head(node * elt, const node * tail);
 % \section{An Example ---\cemph{Set}}
 \section{一个例子：\cemph{Set}}
 那么我们怎么实现抽象数据类型呢？作为一个例子我们考虑一个带有\cemph{add}、
-\cemph{find} 和\cemph{drop} 操作的元素集合\footnote{
+\cemph{find} 和\cemph{drop} 操作的元素集合\index{集合}\footnote{
 不幸的是，\cemph{remove} 是一个用来删除文件的\prop{ANSI-C} 库函数。如果我们
 使用其命名一个\prop{set}的函数，我们就不能再包含\cemph{stdio.h} 了。}。
 它们适用于一个集合、一个元素，并且返回添加的、查找到的或者从集合中删除的元素
@@ -516,6 +517,7 @@ passes the rest of the argument list. \ccbf{action()} must not change
 % \noindent
 % 0123456789012345678901234567890123456789012345678901234567890123456789--74
 
+% \begin{minipage}
 \begin{lstlisting}
 #include<stdio.h>
 
@@ -539,6 +541,7 @@ int main(int argc, char * argv[]){
 	return 0;
 }
 \end{lstlisting}
+% \end{minipage}
 \fi
 
 % vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 :
