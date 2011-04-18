@@ -1,4 +1,7 @@
 
+2011.04:
+	Add attachment of the OOC codes, optimize some details of the
+	book structure.
 2011.03:
 	Add LaTeX source, a ready-to-work structure for a book, and convert
 	the plain text into marked LaTeX file, which can produce a book.
