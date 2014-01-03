@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011, suxpert, All right reserved.
+# Copyright (C) 2009-2014 the Fandol Team, All wrongs reserved.
 
 # Version Control System Information: Subversion, host on Google Code;
 # FileID:	$Id$;
@@ -12,7 +12,7 @@ RM = rm
 TEX = xelatex # -quiet -interaction=nonstopmode
 MKIDX = makeindex
 
-OPEN = evince
+OPEN = mupdf
 TAR = tar -cjf
 MV = mv
 CP = cp
@@ -32,26 +32,25 @@ BALL = OOC.tar.bz2
 SRC =	$(TYPE).tex\
 	header.tex\
 	locale.tex\
-	book.tex\
 	preface.tex\
 	body.tex\
-	chapter01.tex\
-	chapter02.tex\
-	chapter03.tex\
-	chapter04.tex\
-	chapter05.tex\
-	chapter06.tex\
-	chapter07.tex\
-	chapter08.tex\
-	chapter09.tex\
-	chapter10.tex\
-	chapter11.tex\
-	chapter12.tex\
-	chapter13.tex\
-	chapter14.tex\
-	appendixA.tex\
-	appendixB.tex\
-	appendixC.tex
+	ch01-ADT.tex\
+	ch02-Dyln.tex\
+	ch03-psExpr.tex\
+	ch04-inhert.tex\
+	ch05-psSymT.tex\
+	ch06-Hier.tex\
+	ch07-preproc.tex\
+	ch08-DyTC.tex\
+	ch09-statc.tex\
+	ch10-Deleg.tex\
+	ch11-Methods.tex\
+	ch12-persis.tex\
+	ch13-Except.tex\
+	ch14-fwMsg.tex\
+	apdA-Hints.tex\
+	apdB-Prepr.tex\
+	apdC-Manual.tex
 
 # Various of temp files:
 LOGS = $(TYPE).log

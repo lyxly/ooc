@@ -1,18 +1,53 @@
-% # Copyright (C) 2009-2011, suxpert, All right reserved.
+% # Copyright (C) 2009-2014 the Fandol Team, All wrongs reserved.
 % # -*- coding: utf-8 -*-
 % !TEX encoding = UTF-8 Unicode
 
 % Version Control System Information: Subversion, host on Google Code;
-% FileID:		$Id$;
-% FileDate:		$Date$;
-% FileRevision:	$Revision$
+% FileID:       $Id$;
+% FileDate:     $Date$;
+% FileRevision: $Revision$
 
 % The preface.
 
-\chapter{译者序}
+\chapter{自序：喝水不忘挖坑人}
+\label{ch:ownPreface}
+
+若干年前，我紧跟原译者三无舍人跳进了他挖的坑中，本想帮忙填坑，不料后续因为小
+论文、考博、毕业、失业、找工作……等等（好吧我承认辞职之后直到现在仍然处于待业
+状态，求解救 TAT），而直到前不久我才有了自己的计算机，各种因素夹杂在一起，使
+得这个坑遗留了这么多年，俨然已经成为一巨大的天坑。
+
+当然，Fandol 小组本来也挖了不少的坑，所以两人均无暇顾及 OOC 的翻译。而坑只会
+越挖越多越挖越大，如果都在挖坑却不填，坑们就会变成陷阱，吞噬掉靠近的每个人。
+
+前不久，偶然点开了托管在 Google Code 上的本项目，\textbf{非常震惊的发现}竟然
+有 3k+ 的下载量。本屌丝立马羞愧了！哎呦我放出来的 r18 是个啥啊！让人看了多丢
+人啊！以后还混不混了！但转念一想，r18 这种水平的东西\textbf{竟然}都能得到这
+么大的关注，说明这本书应该具有很不错的价值，说明三无舍人童鞋当初的决定是正确
+的，说明我更应该把这个烂尾项目继续下去，——说明我该填坑了。
+
+想不到，挖开这么久的坑日积月累成了一小水池，竟然能够为附近的动物们提供水源。
+或者如果你的坑挖的足够深，变成井也不一定。在水资源这么短缺的时代，能够方便的
+喝上水是多么幸福的一件事情！所以就让我用这么不靠谱的一句话，结束这个算作自序
+的吐槽短文吧！顺便作为对三无舍人童鞋、ChinaUnix 上贡献翻译的童鞋、ClerkMa 童
+鞋等的感谢。
+
+喝水不忘挖坑人。
+
+\bigskip
+\bigskip
+
+\begin{flushright}
+    苏杰\footnote{我也不怕把真名写出来了，谁让我上传“敏捷”排版的时候没把名字
+    去掉……}，
+
+    2014年1月
+\end{flushright}
+
+\chapter{原译者序}
 \label{ch:TransPreface}
 
-我刚刚做出了一个艰难的决定\footnote{此处遵循腾讯公司古例，有关“艰难的决定”
+我刚刚做出了一个艰难的决定\footnote{此处遵循腾讯公司事例，有关“艰难的决定”
 请 \Google{} 搜索“360大战QQ”。}，我决定翻译这本《\prop{ANSI-C} 面向对象编
 程》（\textcolor{blue}{Object-Oriented Programming With \prop{ANSI-C}}）。这
 本书是一位刚刚离职的技术狂同事推荐给我的，细看了一点发现这是一本非常棒的书。
@@ -52,9 +87,9 @@ C语言虽然是一门结构化的语言，但是它是一个非常有技巧的�
 \bigskip
 
 \begin{flushright}
-	译者，
+    三无舍人，
 
-	2010年11月21日于沈阳
+    2010年11月21日于沈阳
 \end{flushright}
 
 % If the page is empty, it's better to remove the page header.
@@ -127,7 +162,7 @@ C语言虽然是一门结构化的语言，但是它是一个非常有技巧的�
 
 本书的一个重要部分是所附源码软盘\footnote{由于本书没有出版实体书，故无法附带
 这个软盘，但相应的资料可以通过本项目的托管网站
-\prop{\href{http://code.google.com}{\Google{} Code}}
+\prop{\href{http://code.google.com/p/ooc}{\Google{} Code}}
 下载得到。\hfill ——译注。}，
 ——其上有一个\prop{DOS} 文件系统，包括一个用来按照章节顺序来创建源码的简
 单shell脚本。还有一个\cemph{ReadMe} 文件——在你执行\cemph{make} 命令前要先
@@ -142,17 +177,17 @@ C语言虽然是一门结构化的语言，但是它是一个非常有技巧的�
 翰斯·尼科拉斯（Hans-Joachim Niclas）、约翰·维特（John Wait）鼓励我出版这些
 笔记（在适当的时候全新的展现一下），这个事情很可能就止于此，我的注解也就是一
 时的时尚了。我感谢他们和所有帮助并且经历本书不断完善的人。最后但是并非不重要
-的，感谢我的家庭——面向对象当然绝不可能代替餐桌上的面包。 
+的，感谢我的家庭——面向对象当然绝不可能代替餐桌上的面包。
 
 % TODO: 为神马（选择12pt时）这里又多出来这么点变成了三页？？？ OTZ.
 \bigskip
 \bigskip
 
 \begin{flushright}
-	1993年10月于\prop{Hollage}
+    1993年10月于\prop{Hollage}
 
-	阿塞尔—托彼亚斯·斯莱内尔（Axel-Tobias Schreiner）
+    阿塞尔—托彼亚斯·斯莱内尔（Axel-Tobias Schreiner）
 \end{flushright}
 
-% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 :
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 noundofile nobackup :
 
