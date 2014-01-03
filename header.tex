@@ -1,4 +1,4 @@
-% # Copyright (C) 2009-2011, suxpert, All right reserved.
+% # Copyright (C) 2009-2014 the Fandol Team, All wrongs reserved.
 % # -*- coding: utf-8 -*-
 % !TEX encoding = UTF-8 Unicode
 
@@ -15,7 +15,7 @@
 % template and not specifically distribute it as part of a another
 % package/program, I grant the extra permission to freely copy and
 % modify this file as you see fit and even to delete this copyright
-% notice. 
+% notice.
 
 % \XeLaTeX{} is recommend to use. It is easier and more powerful
 % with multibytes. If you'd like to use CJK, please modify the source file.
@@ -74,7 +74,7 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 % \setmainfont[BoldFont=SimHei]{SimSun} % Or whatever.
 % % \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{楷体} % Or whatever.
 % % \setmonofont[Scale=MatchLowercase]{隶书} % Or whatever.
- 
+
 %% # If xelatex: {{{
 % XeLaTeX for Chinese, I don't know how to "自动断行" with LuaLaTeX. :(
 % \XeTeXlinebreaklocale "zh" %处理中文
@@ -95,13 +95,26 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 %% # End zhspacing }}}
 
 %% # Elif use xeCJK {{{
-\usepackage[CJKnumber,SlantFont,CJKaddspaces]{xeCJK}
-\setCJKmainfont[BoldFont={SimHei}]{SimSun}
-% TODO: I don't have enough Chinese Fonts here, so use the western one
-% instead
-\setCJKsansfont{Arial} % SimKai
-\setCJKmonofont{Fixedsys} % SimLi
-% \setCJKmonofont{Lucida Console}
+% \usepackage[CJKnumber,SlantFont,CJKaddspaces]{xeCJK}
+\usepackage[CJKnumber,SlantFont]{xeCJK}
+% Adobe Fonts: TODO
+
+% Sim Fonts:
+% SimSun, NSimSun, SimSun\-ExtB, FangSong, LiSu, SimHei, YouYuan, KaiTi,
+% \setCJKmainfont[BoldFont=STZhongsong, ItalicFont=FangSong]{NSimSun}
+% \setCJKsansfont[BoldFont=SimHei, ItalicFont=LiSu]{YouYuan}
+% \setCJKmonofont{YouYuan} % SimLi
+
+% ST Fonts:
+% STSong, STCaiyun, STXingkai, STZhongsong, STHupo, STLiti, STXinwei,
+% STKaiti, STXihei, STFangsong,
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STFangsong]{STSong}
+\setCJKsansfont[BoldFont=SimHei, ItalicFont=LiSu]{STXihei} % SimXX
+% \setCJKsansfont[BoldFont=STXinwei, ItalicFont=STXingkai]{STKaiti}
+% \setCJKmonofont{YouYuan}
+
+% Founder:
+% FZShuTi, FZYaoTi... Others are not available.
 % \setCJKfamilyfont{}[]{} % Pls read the manual.
 
 \punctstyle{quanjiao} % Read the manual for details.
@@ -208,5 +221,5 @@ showstringspaces=false
 
 %% # Preamble maybe not finished... }}}
 
-% vim: set syntax=tex ts=4 sw=4 fo+=Mm tw=76 cc=+2 :
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 noundofile nobackup :
 

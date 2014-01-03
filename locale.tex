@@ -1,4 +1,4 @@
-% # Copyright (C) 2009-2011, suxpert, All right reserved.
+% # Copyright (C) 2009-2014 the Fandol Team, All wrongs reserved.
 % # -*- coding: utf-8 -*-
 % !TEX encoding = UTF-8 Unicode
 
@@ -15,7 +15,7 @@
 % template and not specifically distribute it as part of a another
 % package/program, I grant the extra permission to freely copy and
 % modify this file as you see fit and even to delete this copyright
-% notice. 
+% notice.
 
 % When use CJK, all settings which contains Chinese Characters must be
 % within CJK environment. But \XeTeX{} or Lua\TeX{} does not need this.
@@ -32,13 +32,13 @@
 \renewcommand{\listfigurename}{图~目~录}
 \renewcommand{\listtablename}{表~目~录}
 \renewcommand{\indexname}{索\quad 引}
- 
+
 \newcommand{\prechaptername}{第}
 \newcommand{\postchaptername}{章}
 \newcommand{\chapterformat}
 {\prechaptername\CJKnumber{\thechapter}\postchaptername}
 
-\titleformat{\chapter}[display] 
+\titleformat{\chapter}[display]
 {\normalfont\flushright\Huge\bfseries}{\chapterformat}{20pt}{\Huge}
 % \titlespacing{\chapter}{0pt}{-20pt}{25pt}
 
@@ -92,5 +92,5 @@
 %     {第\xCJKnumber{\thecontentslabel}章\quad}{}
 %     {\hspace{.5em}\titlerule*[10pt]{$\cdot$}\contentspage}
 
-% vim: set syntax=tex ts=4 sw=4 fo+=Mm tw=76 cc=+2 :
+% vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 noundofile nobackup :
 

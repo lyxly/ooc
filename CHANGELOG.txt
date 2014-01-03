@@ -1,3 +1,11 @@
+2014.01:
+	After such a long time, I pick it up again. :)
+	Remove those directories and restructure the contents,
+	rename those files with a useful name.
+	Change the Chinese support to ctex, actually a new documentclass by
+	the Fandol Team, the `ebook` package.
+
+	The most important, continued some translations.
 
 2011.04:
 	Add attachment of the OOC codes, optimize some details of the
