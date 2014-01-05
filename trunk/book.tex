@@ -14,23 +14,26 @@
 \newcommand{\ccbf}[1]{{\ttfamily\bfseries #1}}
 \newcommand{\ccode}[1]{\lstinline[basicstyle=\ttfamily]{#1}}
 \newcommand{\prop}[1]{{\sffamily #1}}
+\newcommand{\addindex}[1]{#1\index{#1}}
 
 \begin{document}
-% \begin{CJK*}{UTF8}{gkai}
 
 \input{locale}
 
+\newcommand{\litux}{\href{http://litux.tk}{LiTuX}}
+
 \newcommand{\thetitle}{ANSI-C面向对象编程}
 \newcommand{\thesubtitle}{}
-% \newcommand{\thetrans}{卜少峰}
-\newcommand{\thetrans}{\href{http://blog.csdn.net/SerenityMoon}{三无舍人}}
+\newcommand{\transa}{\litux}
+\newcommand{\transb}{\href{http://blog.csdn.net/SerenityMoon}{三无舍人}}
+\newcommand{\transc}{CU 上众多网友}
+\newcommand{\thetrans}{\transa, \transb, \transc}
 \newcommand{\theauthor}{Axel-Tobias Schreiner}
 \newcommand{\thepublisher}{饭朵文化教育}
 \newcommand{\theauthors}{\theauthor\quad 著\\ \thetrans\quad 译}
-\newcommand{\thedate}{2011年4月}
-\newcommand{\theversion}{版本0.01, \scshape{\textcolor{red}{Draft}}}
+\newcommand{\thedate}{2014年1月}
+\newcommand{\theversion}{版本0.02, \scshape{\textcolor{red}{Draft}}}
 
-\newcommand{\litux}{\href{http://blog.csdn.net/suxpert}{LiTuX}}
 \newcommand{\cpp}{C{\texttt{\large ++}} }
 
 \newcommand{\Google}{\href{http://www.google.com}{\textcolor{blue}{G}\textcolor{red}{o}\textcolor{orange}{o}\textcolor{blue}{g}\textcolor{green}{l}\textcolor{red}{e}}}
@@ -38,7 +41,6 @@
 % The body of the book, structures.
 \input{body}
 
-% \end{CJK*}
 \end{document}
 % vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 noundofile nobackup :
 
