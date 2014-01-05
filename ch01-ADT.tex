@@ -14,47 +14,60 @@
 % \section{Data Types}
 \section{数据类型}
 
-% Fixme: I don't know how to add the space automaticly by xeCJK or something
-% else, so I have to add the space manually wherever use this ccode.
+数据类型是每种编程语言不可或缺的一部分，
+仅举几例，\prop{ANSI-C} 就有\ccode{int}，\ccode{double} 和 \ccode{char}。
+程序员们极少满足于已有的数据类型，
+于是编程语言通常都会提供从预定义的类型创建新数据类型的机制，
+最简单的方法是构造聚合体，比如数组，结构体或是联合体。
+而指针，依照 C. A. R. Hoare 的话
+\footnote{
+Charles Anthony Hoare 的原话为：``Pointers are like jumps, leading wildly
+from one part of the data structure to another. Their introduction into
+high-level languages has been a step backwards from which we may never
+recover''。文中的这句话因没有上下文导致之前的翻译不知所云，是译者的疏忽。
+\hfill ——译注
+}%
+：“……（这种倒退）可能我们永远没办法弥补”，
+却允许我们表示和操作本质上无限复杂的数据。
 
-数据类型是每种编程语言不可缺少的一部分。\prop{ANSI-C} 有 \ccode{int}，
-\ccode{double} 和 \ccode{char} 这几种。程序员们很少满足于现状，而编
-程语言通常会提供了从预定义的类型创建新数据类型的机制。一种简单的方法是构造集
-合如数组，结构体和联合体。被C. A. R. Hoare称为“我们永远无法收回的一步”的指
-针，允许我们表示和操作本质上极其复杂的数据。
+到底什么是数据类型呢？我们可以从不同角度来看待这个问题。
+数据类型就是值（\prop{value}）的集合
+——\ccode{char} 一般而言有256种不同的值，
+\ccode{int} 的取值就多得多；
+这两者都有均匀的间隔，或多或少像是数学里的自然数或整数。
+\ccode{double} 类型又具有更多数值可取，
+但是它们却显然不同于数学里的实数。
 
-到底什么是数据类型？我们可以从几个方面来看。数据类型就是值（\prop{value}）的
-集合——\ccode{char} 就有256种不同的值，\ccode{int} 就更多了；两者都有均匀
-的间隔，或多或少有点像是数学里的自然数或整数。\ccode{double} 类型的值就
-更多了，但是它们实际上却不像数学里的实数。
+不同于此，我们还可以定义这样一种数据类型，
+它包含了一组值的集合以及作用于该集合之上的一些操作。
+一般来说，这些值应该是计算机能够表示的，
+而这些操作则多少反映了可用的硬件指令。
+在这方面，\prop{ANSI-C} 中的 \ccode{int} 就做得不太好：
+可取值的范围在不同的机器上可能有所不同，
+并且有些操作例如算数右移的表现也可能有所差异。
 
-或者我们可以定义一种数据类型，它是一组值的集合以及作用于该集合之上的操作。一
-般来说，这些值是计算机能够表示的，而这些操作多少反映了可用的硬件指令。
-\prop{ANSI-C} 中的 \ccode{int} 在这方面上就做得不太好：值的集合在不同的机器
-上可能是不同的，并且如算数右移一样的操作也会不同。
-
-更加复杂的例子没有更好的用处。一般我们可以用结构体来定义
-线性表\index{线性表}的元素
+考虑到更复杂的例子也没有更大的意义，
+一般我们会用结构体来定义\addindex{线性表}中的元素
 \begin{lstlisting}
-#include<stdio.h>
 typedef struct node {
 	struct node * next;
 	... information ...
 } node;
 \end{lstlisting}
-至于对线性表的操作我们指定像这样的函数头部：
+而对线性表的操作，我们给出如下表头函数：
 \begin{lstlisting}
 node * head(node * elt, const node * tail);
 \end{lstlisting}
 
-但是，这种办法是很松散的。好的编程原则要求我们封装数据项表示，并且只声明可能
-的操作。
+不过，这种处理方式显得非常松散。
+好的编程原则要求我们封装数据项的表示，并且只声明合适的操作。
 
 % \section{Abstract Data Types}
 \section{抽象数据类型}
 
-如果我们不打算把具体表示暴露给用户，那么我们称这个数据类型是\textbf{抽象的}
-。理论上将这要求我们通过涉及到适当操作的数学公理来指定这个数据类型的属性。例
+如果我们不把数据表示的细节暴露给用户，那么我们称这个数据类型是\textbf{抽
+象的}。
+从理论层面上讲，这需要我们利用与可能的操作有关的数学原理来表明这种数据类型的属性。例
 如，只有当我们首先经常往一个队列里添加元素时我们才可以删除它，并且我们取回这
 个元素的顺序与它们被加入的顺序是相同的。
 
