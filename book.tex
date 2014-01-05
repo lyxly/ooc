@@ -7,8 +7,9 @@
 % FileDate:		$Date$;
 % FileRevision:	$Revision$
 
-\documentclass[11pt]{book}
+\documentclass[a4paper, 11pt]{book}
 \input{header}
+\usepackage{wallpaper}
 
 \newcommand{\cemph}[1]{{\ttfamily\slshape #1}}
 \newcommand{\ccbf}[1]{{\ttfamily\bfseries #1}}
@@ -38,9 +39,14 @@
 
 \newcommand{\Google}{\href{http://www.google.com}{\textcolor{blue}{G}\textcolor{red}{o}\textcolor{orange}{o}\textcolor{blue}{g}\textcolor{green}{l}\textcolor{red}{e}}}
 
+\setlength\columnsep{18pt}
+\setlength\columnseprule{0.6pt}
+\renewcommand\columnseprulecolor{\color{cyan}}
+\addtocontents{toc}{\protect\begin{multicols}{2}}
 % The body of the book, structures.
 \input{body}
 
+\addtocontents{toc}{\protect\end{multicols}}
 \end{document}
 % vim: set syntax=tex ts=4 sw=4 tw=76 fo+=Mm cc=+2 noundofile nobackup :
 

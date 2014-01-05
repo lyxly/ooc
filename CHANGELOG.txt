@@ -2,6 +2,7 @@
 	After such a long time, I pick it up again. :)
 	Remove those directories and restructure the contents,
 	rename those files with a useful name.
+	New cover page designed by LiTuX (Yes! I did this ^_^ ).
 	Change the Chinese support to ctex, actually a new documentclass by
 	the Fandol Team, the `ebook` package.
 
