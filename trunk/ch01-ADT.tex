@@ -237,13 +237,14 @@ void * new (const void * type, ...)
 	return p;
 }
 \end{lstlisting}
-We use zero to mark available elements of \ccbf{heap[]}; therefore, we
-cannot return a reference to \ccbf{heap[0]} ---if it were a set, its
-elements would contain the index value zero.
+我们用 0 值来标识 \ccbf{heap[]} 数组中可用的成员；
+所以不能返回 \ccbf{heap[0]} 的引用，
+——因为如果它是一个集合，那么它所包含的元素可能包括索引值 0。
 
-Before an object is added to a set, we let it contain the impossible index
-value \ccbf{MANY} so that \ccbf{new()} cannot find it again and we still
-cannot mistake it as a member of any set.
+在向集合中增加对象之前，将一个不可能取到的索引值
+\ccbf{MANY} 赋给该元素对应的数组成员，这样
+\ccbf{new()} 就不可能再次将其分配为新元素，
+我们也不会将其误认为某个集合的元素。
 
 \ccbf{new()} can run out of memory. This is the first of many errors, that
 ``cannot happen''. We will simply use the \prop{ANSI-C} macro

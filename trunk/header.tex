@@ -40,7 +40,9 @@
 \usepackage{enumerate} % 列举环境
 % \usepackage{sectsty} % 章节样式
 % \usepackage{abstract} % 摘要
-% \usepackage[nottoc]{tocbibind} % 目录
+\usepackage[notindex]{tocbibind} % 目录
+\usepackage{imakeidx}
+\makeindex[intoc]
 
 \usepackage{hyperref} % Much better way to use hyperref
 \hypersetup{colorlinks, citecolor=green, filecolor=brown, linkcolor=red,
@@ -137,8 +139,8 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 
 %% # End CJK }}}
 
-\usepackage{makeidx}
-\makeindex
+% \usepackage{makeidx}
+% \makeindex
 
 \usepackage{fancyhdr} % 页眉页脚
 \setlength{\headheight}{15pt} % To avoid the warning.
@@ -174,6 +176,8 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 % \numberwithin{equation}{section}
 
 \linespread{1.25} % 行距
+\usepackage{multicol}
+% \usepackage{multitoc}
 
 \usepackage{listings}
 

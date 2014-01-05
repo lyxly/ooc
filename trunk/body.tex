@@ -43,13 +43,13 @@
 \drop=2\baselineskip
 \centering
 \vspace*{\drop}
-{\fontsize{32bp}{\baselineskip}\bf \thetitle} \\[\drop]
+{\fontsize{32bp}{\baselineskip}\sffamily\bfseries \thetitle} \\[\drop]
 % {\Huge \thetitle}\\[\drop]
 \scalebox{8}[1]{{\wb{10}{12}4}}\\[\drop]
-{\Large{\bf \theauthor}\quad 著}\\[\baselineskip]
+{\Large \sffamily {\bfseries \theauthor}\quad 著}\\[\baselineskip]
 % {\Large\itshape 著}\\[\baselineskip]
 {\wb{10}{12}4}\\[\baselineskip]
-{\Large{\bf \thetrans}\quad 译}\par
+{\Large \sffamily {\bfseries \thetrans}\quad 译}\par
 % {\Large\itshape 译}\\[\baselineskip]
 \vfill
 \scalebox{8}[1]{{\wb{10}{12}4}}\\[\drop]
@@ -58,6 +58,7 @@
 \vspace*{\drop}
 \endgroup}
 
+\frontmatter
 \pagestyle{empty}
 \begin{titlepage}
     % \DeclareFixedFont{\Bf}{T1}{ptm}{b}{n}{3cm}
@@ -66,8 +67,25 @@
 % \maketitle
 % \Huge\thetitle\\
 % \large\theauthor{}\quad 著 \qquad\thetrans{}\quad 译
+    % \titleWH
     \pdfbookmark[-1]{\thetitle}{titlepage}
-\titleWH
+    \ThisCenterWallPaper{1.0}{cover.jpg}
+    % \vspace*{2cm}
+    \textsf{ \huge 若干技术狂人推荐阅读 }
+    \vspace{3cm}
+    \begin{center}
+    {\fontsize{40bp}{\baselineskip}\sffamily\bfseries \thetitle}
+
+    \vspace{2cm}
+    {\Huge \sffamily {\bfseries \theauthor{} 著}}
+
+    \vspace{1.2cm}
+    {\huge \sffamily {\bfseries \thetrans{} 译}}
+
+    \vspace{13cm}
+
+    {\huge \sffamily \thepublisher{}\quad 中国·青岛}
+    \end{center}
 \end{titlepage}
 
 \cleardoublepage
@@ -76,7 +94,7 @@
 % \chapter*{}
 \vspace*{3cm}
 \begin{center}
-    {\Huge\thetitle\\[1em]}
+    {\Huge \sffamily \thetitle\\[1em]}
     {\Large\bf\theauthors\\[2em]}
     \thedate\\
     \theversion
@@ -86,7 +104,7 @@
 \vfill
 \begin{center}
     \scshape{Fandol Culture \& Education}\\
-    \Large{\bf \thepublisher} \quad 荣誉出品
+    { \Large \sffamily { \bfseries \thepublisher} \quad 荣誉出品 }
 \end{center}
 
 \newpage
@@ -136,7 +154,7 @@ Info\ldots
 % \chapter*{}
 \vspace*{3cm}
 \begin{center}% TODO
-    {\Huge 谨此献给 \\[2em]}
+    {\Huge \sffamily 谨此献给 \\[2em]}
     {\Large
     山东科技大学\\
     \bigskip
@@ -148,7 +166,7 @@ Info\ldots
     }
 \end{center}
 
-\vspace{9cm}
+\vspace{11cm}
 \begin{flushright}
     \tiny{还有被拆掉的我的家}
 \end{flushright}
@@ -159,8 +177,12 @@ Info\ldots
 
 \include{preface}
 
+% \begin{multicols}{2}
+% \pdfbookmark[0]{\contentsname}{contents}
 \tableofcontents
+% \end{multicols}
 % \addcontentsline{toc}{chapter}{目\quad 录}
+\newpage{\thispagestyle{empty}\cleardoublepage}
 
 \mainmatter
 \pagestyle{fancy}
@@ -186,7 +208,7 @@ Info\ldots
 {附录\thechapter}
 \titlecontents{chapter}[0em]{\addvspace{1.5ex}\bfseries}
 {附录\thecontentslabel\quad}% {附录\thecontentslabel\quad}
-{\hspace*{-2.3em}}
+{\hspace*{-0.0em}}
 {\hfill{}\contentspage}[\addvspace{0.5ex}]
 
 % FIXME: I don't know why if I use \include to include apd.A, the label of
@@ -197,10 +219,8 @@ Info\ldots
 
 \backmatter
 
-\addcontentsline{toc}{chapter}{索引}
 \printindex
 
-\addcontentsline{toc}{chapter}{参考文献}
 \begin{thebibliography}{AWK88}
 
 \bibitem[ANSI]{ANSI}
