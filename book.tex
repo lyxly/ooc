@@ -12,8 +12,9 @@
 \usepackage{wallpaper}
 
 \newcommand{\cemph}[1]{{\ttfamily\slshape #1}}
-\newcommand{\ccbf}[1]{{\ttfamily\bfseries #1}}
-\newcommand{\ccode}[1]{\lstinline[basicstyle=\ttfamily]{#1}}
+% \newcommand{\ccbf}[1]{{\ttfamily\bfseries #1}}
+\newcommand{\ccode}[1]{\lstinline[basicstyle=\ttfamily\bfseries]{#1}}
+\let\ccbf\ccode
 \newcommand{\prop}[1]{{\sffamily #1}}
 \newcommand{\addindex}[1]{#1\index{#1}}
 
