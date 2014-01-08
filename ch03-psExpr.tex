@@ -88,7 +88,7 @@ void error (const char * fmt, ...)
 #include "parse.h" /* defines NUMBER */
 static double number; /* if NUMBER: numerical value */
 static enum tokens scan (const char * buf)
-/* return token = next input symbol */
+/* return token = next input symbol */ /*返回的标记=下一个输入标记*/
 {   static const char * bp;
     if (buf)
         bp = buf; /* new input line */
@@ -103,23 +103,67 @@ static enum tokens scan (const char * buf)
     else
         token = * bp ? * bp ++ : 0;
     return token;
-}
+  }
 \end{lstlisting}
 
-我们通过输入的地址或者空指针调用scan()函数来继续运行。
-为了求出符合ANSI-C 标准的strtod()函数中的浮点数，
-我们忽略了空格，和首要的数字或小数点。其它的任何特性仍不变，% TODO
-并且我们不会在输入的缓冲提前输出以前的空位。
-
+我们调用 scan() ，可传递输入行缓冲的地址，
+或传进一个空指针得以继续工作在当前的行。
+空格被忽略，并且遇到第一个为数字或小数点，
+我们就是用一个ANSI-C 的函数 strtod() 开始提取出浮点数字。
+若为其他的任何字符将被返回，
+并且我们不会预先在输入缓冲传递一个空字节。
 
 % \section{The Recognizer}
 \section{识别器}
 \label{sec:recogn}
 
+% scan() 的结果被存储在全局变量token
+% ——这样简化了识别程序（识别器）。
+% 如果我们侦测出一个数字，我们将返回唯一的值 NUMBER
+% 并使得在全局变量 number 中实际的值有效。
+
 \ccode{scan()} 函数的结果被存取在全局变量中
 ——这简化了识别器的工作。
 如果我们发现了一个数值，
 我们就返回它的唯一值并且确保它的全局变量有效。
+
+
+表达式经过由 \ccode{scan()} 函数内部调用的 \ccode{sum()} 函数识别，
+并返回一个能被 \ccode{process()} 函数处理，
+能被 \ccode{delete()} 函数回收的表现形式。
+如果不使用 \prop{yacc}，我们通过递归下降法来识别表达式，
+其中的语法规则被转换成等价的 \prop{C} 语言函数。
+例如：\ccode{sum} 是一个操作数，其后跟随零个或多个组，
+每个组由一个加减运算符和另一个操作数组成。
+语法规则如下
+\begin{lstlisting}
+  sum : product { +|- product }...
+\end{lstlisting}
+被翻译成 \prop{C} 函数就成了
+\begin{lstlisting}
+void sum (void)
+{
+    product();
+    for (;;)
+    {   switch (token) {
+            case ’+’:
+            case ’-’:
+                scan(0), product(); continue;
+        }
+    return;
+    }
+}
+\end{lstlisting}
+
+对每项语法规则都对应一个 \prop{C} 函数，以便于规则之间能够相互调用。
+选择性规则被转换成 \ccode{switch} 或者 \ccode{if} 语句，
+语法中的迭代生成 \prop{C} 语言中的循环。
+唯一需要注意的问题是我们必须避免无限递归。
+
+token 总是包含下一个输入的符号。
+如果我们识别出它，我们必须调用 scan(0) 继续处理输入，
+并在 token 中存储一个新的符号。
+
 
 % \section{The Processor}
 \section{The Processor}<++>

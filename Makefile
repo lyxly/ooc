@@ -52,21 +52,26 @@ SRC =	$(TYPE).tex\
 	apdB-Prepr.tex\
 	apdC-Manual.tex
 
+EXTR = cover.jpg\
+	   README.txt\
+	   CHANGELOG.txt\
+	   book.tex.latexmain
+
 # Various of temp files:
 LOGS = $(TYPE).log
 TOCS = $(TYPE).toc
 OUTS = $(TYPE).out
-IDXS = $(TYPE).idx $(TYPE).ind $(TYPE).ilg
+IDXS = *.idx *.ind *.ilg
 AUXS = $(SRC:.tex=.aux)
 BAKS = $(SRC:.tex=.tex~)
 # Vim set backup; For Gedit or sth else, modify this to .bak or whatever.
 
 $(TARGET): $(SRC)
 	$(TEX) $(TYPE)
-	$(MKIDX) $(TYPE)
 	$(TEX) $(TYPE)
 
 # Re-run for hyperlinks, indexs and so on.
+# $(MKIDX) $(TYPE) makeindex is not needed by imakeidx
 
 .PHONY: clean distclean dist checkin exec clear
 
@@ -89,9 +94,9 @@ distclean: clean clear
 checkin: distclean
 	$(VCS) --help # TODO:
 
-dist: $(TARGET) clear
+dist: $(TARGET)
 	$(MV) $(TARGET) OOC.pdf
-	$(TAR) $(BALL) $(SRC) OOC.pdf Makefile
+	$(TAR) $(BALL) $(SRC) $(EXTR) OOC.pdf Makefile
 	$(CP) $(BALL) OOC-`date -u -d now +%Y-%m-%d-%H-%M`.tar.bz2
 	$(MV) OOC.pdf $(TARGET)
 

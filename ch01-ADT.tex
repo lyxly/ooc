@@ -48,7 +48,7 @@ recover''。文中的这句话因没有上下文导致之前的翻译不知所�
 并且有些操作例如算数右移的表现也可能有所差异。
 
 考虑到更复杂的例子也没有更大的意义，
-一般我们会用结构体来定义\addindex{线性表}中的元素
+一般我们会用结构体来定义\zhindex{线性表}中的元素
 \begin{lstlisting}
 typedef struct node {
 	struct node * next;
@@ -86,9 +86,9 @@ node * head(node * elt, const node * tail);
 \section{一个例子：\cemph{Set}}
 \label{sec:set}
 那么我们怎么实现抽象数据类型呢？作为一个例子我们考虑一个带有 \cemph{add}、
-\cemph{find} 和 \cemph{drop} 操作的元素\addindex{集合}\footnote{
+\cemph{find} 和 \cemph{drop} 操作的元素\zhindex{集合}\footnote{
 不幸的是，\cemph{remove} 是一个用来删除文件的 \prop{ANSI-C} 库函数。如果我们
-使用其命名一个 \prop{set} 的函数，我们就不能再包含 \cemph{stdio.h} 了。}。
+使用其命名一个 \prop{\enindex{set}} 的函数，我们就不能再包含 \cemph{stdio.h} 了。}。
 它们适用于一个集合、一个元素，并且返回添加的、查找到的或者从集合中删除的元素
 。\cemph{find} 可以被用来实现 \cemph{contains}，它告诉我们这个集合中是否已经
 包含了这个元素。
@@ -141,8 +141,9 @@ void delete(void * item);
 就像 \cemph{Set.h} 一样，这个文件被预处理符号 \ccode{NEW_H} 保护。本文只显示了
 每个新文件中更有意义的部分。源文件软盘包含所有示例的完整代码。
 
-\ccode{new()} 接受类似于 \ccode{Set} 一样的描述符以及更多的可能使用的初始化参数
-，它返回一个指向新创建的符合描述参数的数据项的指针。\ccode{delete()} 接受一个
+\ccode{new()}\index[en]{new()} 接受类似于 \ccode{Set} 一样的描述符以及更多的可能使用的初始化参数
+，它返回一个指向新创建的符合描述参数的数据项的指针。\ccode{delete()}
+\index[en]{delete()} 接受一个
 有 \ccode{new()} 创建的指针并且回收相关资源。
 
 \ccode{new()} 和 \ccode{delete()} 大体上是 \prop{ANSI-C} 函数 \ccode{calloc()}
@@ -150,10 +151,10 @@ void delete(void * item);
 指明需要申请内存的大小。
 
 % \section{\cemph{Object}}
-\section{\emph{对象}}
+\section{\emph{\zhindex{对象}}}
 \label{sec:object}
 如果我们需要收集一个 \prop{set}中任何感兴趣的东西，我们就需要在头文件
-\cemph{Object.h} 中描述另外一个抽象数据类型 \ccode{Object}：
+\cemph{Object.h} 中描述另外一个抽象数据类型 \ccode{Object}\index[en]{Object}：
 \begin{lstlisting}
 extern const void * Object;		/* new(Object); */
 
