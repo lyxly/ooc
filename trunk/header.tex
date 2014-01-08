@@ -30,7 +30,7 @@
 % This file will be include in a control file, e.g. slide.tex.
 %% # Document Preamble {{{ Main Part
 
-\usepackage{times}
+% \usepackage{times}
 \usepackage{amsmath,amsfonts,amssymb} % 数学相关
 
 \usepackage{indentfirst} % 首行缩进
@@ -42,7 +42,10 @@
 % \usepackage{abstract} % 摘要
 \usepackage[notindex]{tocbibind} % 目录
 \usepackage{imakeidx}
-\makeindex[intoc]
+\indexsetup{level=\section*, toclevel=section, noclearpage}
+\makeindex[intoc, columns=3, name=zh, title=中文关键词]
+\makeindex[intoc, columns=3, name=en, title=英文关键词]
+% \makeindex[intoc, columns=3, name=keywords, title=关键词索引]
 
 \usepackage{hyperref} % Much better way to use hyperref
 \hypersetup{colorlinks, citecolor=green, filecolor=brown, linkcolor=red,
@@ -124,9 +127,9 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 %% # End xeCJK }}}
 
 % \setmainfont{Times New Roman}
-% \setsansfont{Comic Sans MS}
 % \setsansfont{Arial}
-% \setmonofont{Courier New}
+% \setsansfont{Source Sans Pro}
+% \setmonofont{Source Code Pro}
 % \setmonofont{Consolas}
 % \setmonofont{Lucida Console}
 
@@ -141,6 +144,9 @@ urlcolor=blue, bookmarksnumbered, pdfborder=1, bookmarksopen=false} %, xetex}
 
 % \usepackage{makeidx}
 % \makeindex
+
+% \usepackage{mathptmx}
+% \usepackage{libertine}
 
 \usepackage{fancyhdr} % 页眉页脚
 \setlength{\headheight}{15pt} % To avoid the warning.

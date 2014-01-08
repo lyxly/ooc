@@ -69,7 +69,7 @@
 % \large\theauthor{}\quad 著 \qquad\thetrans{}\quad 译
     % \titleWH
     \pdfbookmark[-1]{\thetitle}{titlepage}
-    \ThisCenterWallPaper{1.0}{cover.jpg}
+    \ThisCenterWallPaper{1.0}{cover-v3.jpg}
     % \vspace*{2cm}
     \textsf{ \huge 若干技术狂人推荐阅读 }
     \vspace{3cm}
@@ -219,8 +219,14 @@ Info\ldots
 
 \backmatter
 
-\printindex
-% \newpage{\thispagestyle{empty}\cleardoublepage}
+\chapter*{索\quad 引}
+\addcontentsline{toc}{chapter}{索\quad 引}
+\chaptermark{索\quad 引}
+\printindex[zh]
+\clearpage
+\printindex[en]
+
+\newpage{\thispagestyle{empty}\cleardoublepage}
 
 \begin{thebibliography}{AWK88}
 
